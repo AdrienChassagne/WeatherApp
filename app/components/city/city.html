@@ -3,31 +3,30 @@
     <div class="row formCity">
       <div class="col-xs-12 ndCity">
         <span class="col-xs-10">Nom de ville</span>
-        <span class="icoVille col-xs-2 " ng-click="$ctrl.open()"><i class="fa fa-bars pull-right" aria-hidden="true"></i></span>
+        <span class="icoVille col-xs-2 " ng-click="cityCtrl.open()"><i class="fa fa-bars pull-right" aria-hidden="true"></i></span>
 
       </div>
       <div class="row">
-        <div class="form col-xs-12" ng-show="$ctrl.showBar">
+        <div class="form col-xs-12" ng-show="cityCtrl.showBar">
           <div class="containForm">
             <div class="col-xs-12 col-sm-10 ">
-              <input name="input" ng-model="$ctrl.city" class="form-control" ng-focus="$ctrl.focus($ctrl.city)">
+              <input name="input" ng-model="cityCtrl.city" class="form-control" ng-focus="cityCtrl.focus(cityCtrl.city)">
             </div>
             <div class="col-xs-12 col-sm-2 ">
-              <button type="button" name="button" ng-click="$ctrl.addthatcity()" class="btn col-xs-12">AJOUTER</button>
+              <button type="button" name="button" ng-click="cityCtrl.addthatcity()" class="btn col-xs-12">AJOUTER</button>
             </div>
-            <div ng-show="$ctrl.show">
-              <p class="message">{{ $ctrl.message }}</p>
+            <div ng-show="cityCtrl.show">
+              <p class="message">{{ cityCtrl.message }}</p>
             </div>
           </div>
         </div>
       </div>
     </div>
-
   </div>
 </section>
 <section class="container">
   <div class="row">
-    <div class="col-xs-12 col-md-6 col-lg-4 spacer item" ng-repeat='each in $ctrl.data'>
+    <div class="col-xs-12 col-md-6 col-lg-4 spacer item" ng-repeat='each in cityCtrl.data'>
       <div class="city  vertical-center">
         <div class="name row">
           <div class="col-xs-10">
@@ -35,7 +34,12 @@
               <div class="icon col-xs-2">
                 <span ng-class="each.ciel"></span>
               </div>
-              <span class="nName col-xs-10">{{ each.name }}</span>
+              <div class=" col-xs-10">
+                <span class="nName">{{ each.name }}</span>
+                <a class="aName" ng-click="cityCtrl.goDetails(each)">
+                  <i class="fa fa-info" aria-hidden="true"></i>
+  </a>
+              </div>
             </div>
             <div class="content">
               <span>{{ each.temp }} °C</span>
@@ -43,11 +47,13 @@
           </div>
           <div class="col-xs-2 mspacer">
             <div class="nIcon centering ">
-              <span ng-click="$ctrl.remove($ctrl.data, $index)"><i class="icon-Cancel"></i></span>
+              <span ng-click="cityCtrl.remove(cityCtrl.data, $index)"><i class="icon-Cancel"></i></span>
             </div>
           </div>
         </div>
       </div>
+
     </div>
   </div>
+
 </section>

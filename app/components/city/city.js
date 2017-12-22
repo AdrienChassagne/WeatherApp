@@ -1,23 +1,19 @@
 (function() {
   'use strict';
 
-  var app = angular.module('app', ['ngAnimate']);
+  angular
+    .module('app')
+    .component('weatherComp', {
+      bindings: {
+        city: '<'
+      },
+      templateUrl: 'components/city/city.html',
+      controller: cityCtrl,
+      controllerAs: 'cityCtrl'
+    })
+    .controller('cityCtrl', cityCtrl)
 
-  app.value('wArray', {
-    data: [],
-  });
-
-  app.component('weatherComp', {
-    bindings: {
-      city: '<'
-    },
-    templateUrl: 'template/city.html',
-    controller: cityCtrl,
-  });
-
-
-
-  function cityCtrl($http, $q, wArray) {
+  function cityCtrl($http, $q, wArray, $state) {
 
     var vm = this;
     vm.city = '';
@@ -25,7 +21,6 @@
     vm.message = "";
     vm.show = false;
     vm.showBar = true;
-
     vm.open = function() {
       vm.showBar = !vm.showBar;
     }
@@ -38,6 +33,12 @@
       vm.show = false;
     }
 
+    vm.goDetails = function(city) {
+      $state.go('details', {
+        "city": city.details
+      });
+    }
+
     vm.addthatcity = function() {
       var url = 'http://api.openweathermap.org/data/2.5/weather?q=' + vm.city + '&APPID=2e075451ba6f2bbf745845d0afa5b330&units=metric';
       var ville = {};
@@ -48,7 +49,8 @@
           var ville = {
             name: response.data.name,
             temp: Math.round(response.data.main.temp),
-            ciel: "icon-" + weather
+            ciel: "icon-" + weather,
+            details: response.data
           };
 
           var found = false;
@@ -76,7 +78,5 @@
           return $q.reject(response.data);
         })
     };
-
   };
-
-}());
+})();

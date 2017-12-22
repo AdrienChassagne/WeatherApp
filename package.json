@@ -4,10 +4,11 @@
   "description": "",
   "dependencies": {
     "angular": "^1.6.6",
+    "angular-ui-router": "^1.0.3",
     "bootstrap": "^3.3.7",
+    "font-awesome": "*",
     "gulp": "^3.9.1",
-    "less": "^2.7.2",
-    "font-awesome": "*"
+    "less": "^2.7.2"
   },
   "devDependencies": {},
   "scripts": {
